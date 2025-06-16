@@ -6,9 +6,9 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/fatih/color"
 	"github.com/noclaps/dot/lib/common/log"
 	. "github.com/noclaps/dot/lib/types"
+	"github.com/noclaps/dot/lib/utils/color"
 )
 
 func printChanges(added []AbsolutePath, removed []AbsolutePath) {
@@ -24,16 +24,14 @@ func printChanges(added []AbsolutePath, removed []AbsolutePath) {
 		log.Printlnf(color.GreenString("+ %s"), strings.TrimPrefix(target.Str(), homePrefix))
 	}
 	if len(added) > SHOW_LIMIT {
-		boldGreen := color.New(color.FgGreen, color.Bold).SprintFunc()
-		log.Printlnf(boldGreen("+ %d more"), len(added)-SHOW_LIMIT)
+		log.Printlnf(color.BoldGreenString("+ %d more"), len(added)-SHOW_LIMIT)
 	}
 
 	for _, target := range orderAndLimitSlice(removed, SHOW_LIMIT) {
 		log.Printlnf(color.RedString("- %s"), strings.TrimPrefix(target.Str(), homePrefix))
 	}
 	if len(removed) > SHOW_LIMIT {
-		boldRed := color.New(color.FgRed, color.Bold).SprintFunc()
-		log.Printlnf(boldRed("- %d more"), len(removed)-SHOW_LIMIT)
+		log.Printlnf(color.BoldRedString("- %d more"), len(removed)-SHOW_LIMIT)
 	}
 }
 
