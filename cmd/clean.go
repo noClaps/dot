@@ -10,7 +10,6 @@ var cleanCmd = &cobra.Command{
 	Use:     "clean",
 	Short:   "Remove all symlinks created by doot.",
 	Run: func(cmd *cobra.Command, args []string) {
-		SetUpLogger(cmd)
 		fullClean, err := cmd.Flags().GetBool("full-clean")
 		if err != nil {
 			panic(err)

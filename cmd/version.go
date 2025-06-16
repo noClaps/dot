@@ -15,13 +15,7 @@ var versionCmd = &cobra.Command{
 	Use:     "version",
 	Short:   "Show the version information.",
 	Run: func(cmd *cobra.Command, args []string) {
-		SetUpLogger(cmd)
-
-		if log.IsVerbose() {
-			log.Printlnf("Version: %s", VERSION_STRING)
-		} else {
-			log.Printlnf("%s", VERSION)
-		}
+		log.Printlnf("%s", VERSION)
 	},
 }
 

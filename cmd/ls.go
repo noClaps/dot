@@ -10,7 +10,6 @@ var lsCmd = &cobra.Command{
 	Use:     "ls",
 	Short:   "List the installed (symlinked) dotfiles.",
 	Run: func(cmd *cobra.Command, args []string) {
-		SetUpLogger(cmd)
 		asJson, err := cmd.Flags().GetBool("json")
 		if err != nil {
 			panic(err)

@@ -10,7 +10,6 @@ var restoreCmd = &cobra.Command{
 	Use:     "restore <file> [file2 ...]",
 	Short:   "Opposite of 'doot add'. Replace symlinks with the original files.",
 	Run: func(cmd *cobra.Command, args []string) {
-		SetUpLogger(cmd)
 		restore.Restore(args)
 	},
 }
