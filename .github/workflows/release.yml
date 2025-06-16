@@ -51,4 +51,3 @@ jobs:
           tap_token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
           macos_file: dot-darwin-arm64.tar.gz
           linux_file: dot-linux-amd64.tar.gz
-          completion_command: completion
