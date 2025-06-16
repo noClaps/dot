@@ -50,7 +50,7 @@ func FromFile(path AbsolutePath) Config {
 }
 
 func FromDotfilesDir(dotfilesDir AbsolutePath) Config {
-	return FromFile(dotfilesDir.Join("doot").Join("config.toml"))
+	return FromFile(dotfilesDir.Join("dot").Join("config.toml"))
 }
 
 func verifyConfig(config *Config) {

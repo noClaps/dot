@@ -81,7 +81,7 @@ func restoreFile(filePath AbsolutePath, installedLinks SymlinkCollection, dotfil
 			return err
 		}
 	}
-	return fmt.Errorf("it's not a dotfile managed by doot")
+	return fmt.Errorf("it's not a dotfile managed by dot")
 }
 
 func overwriteLink(symlinkPath, dotfilePath, dotfilesDir AbsolutePath) error {

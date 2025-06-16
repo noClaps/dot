@@ -11,7 +11,7 @@ import (
 
 // https://stackoverflow.com/a/58148921
 func ReplaceWithSymlink(target AbsolutePath, dotfilesSource AbsolutePath) error {
-	tempLocation := target.Str() + common.DOOT_BACKUP_EXT
+	tempLocation := target.Str() + common.DOT_BACKUP_EXT
 	if err := os.Remove(tempLocation); err != nil && !os.IsNotExist(err) {
 		log.Error("Failed to remove temporary file %s, consider removing it manually.\n%s", tempLocation, err)
 		return err

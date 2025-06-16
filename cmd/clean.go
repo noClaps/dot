@@ -8,7 +8,7 @@ import (
 var cleanCmd = &cobra.Command{
 	GroupID: basicCommandsGroup.ID,
 	Use:     "clean",
-	Short:   "Remove all symlinks created by doot.",
+	Short:   "Remove all symlinks created by dot.",
 	Run: func(cmd *cobra.Command, args []string) {
 		fullClean, err := cmd.Flags().GetBool("full-clean")
 		if err != nil {

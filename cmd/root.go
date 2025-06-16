@@ -8,7 +8,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "doot",
+	Use:   "dot",
 	Short: "A fast and simple dotfiles manager that just gets the job done.\nVersion: " + VERSION_STRING,
 	Run: func(cmd *cobra.Command, args []string) {
 		lib.ExecuteRootCmd(cmd, args)

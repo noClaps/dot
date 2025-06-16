@@ -11,21 +11,21 @@ import (
 
 const CURRENT_CACHE_VERSION uint32 = 2
 
-func Load() DootCache {
+func Load() DotCache {
 	fileContents, err := os.ReadFile(getCachePath())
 	if err != nil {
 		log.Info("Cache read error: %v, creating new cache", err)
-		return DootCache{
+		return DotCache{
 			Version: CURRENT_CACHE_VERSION,
 			Entries: []*CacheEntry{},
 		}
 	}
 
-	var cacheData DootCache
+	var cacheData DotCache
 	err = cacheData.UnmarshalBinary(fileContents)
 	if err != nil {
 		log.Warning("Error parsing cache file: %v, creating new cache", err)
-		return DootCache{
+		return DotCache{
 			Version: CURRENT_CACHE_VERSION,
 			Entries: []*CacheEntry{},
 		}
@@ -33,7 +33,7 @@ func Load() DootCache {
 
 	if cacheData.Version != CURRENT_CACHE_VERSION {
 		log.Info("Cache version mismatch: expected %d, got %d", CURRENT_CACHE_VERSION, cacheData.Version)
-		return DootCache{
+		return DotCache{
 			Version: CURRENT_CACHE_VERSION,
 			Entries: []*CacheEntry{},
 		}
@@ -42,7 +42,7 @@ func Load() DootCache {
 	return cacheData
 }
 
-func (cache *DootCache) Save() {
+func (cache *DotCache) Save() {
 	marshalledData, err := cache.MarshalBinary()
 	if err != nil {
 		log.Error("Error marshalling cache data: %v", err)
@@ -55,7 +55,7 @@ func (cache *DootCache) Save() {
 	}
 }
 
-func (cache *DootCache) GetEntry(cacheKey string) *InstalledFilesCache {
+func (cache *DotCache) GetEntry(cacheKey string) *InstalledFilesCache {
 	for _, entry := range cache.Entries {
 		if entry.CacheKey == cacheKey {
 			return entry.InstalledFiles
@@ -94,11 +94,11 @@ func getCachePath() string {
 	if err != nil {
 		log.Fatal("Error creating cache directory: %v", err)
 	}
-	return path.Join(cacheDir, "doot-cache.bin")
+	return path.Join(cacheDir, "dot-cache.bin")
 }
 
 func getCacheContainingDir() string {
-	cacheDir := os.Getenv(common.ENV_DOOT_CACHE_DIR)
+	cacheDir := os.Getenv(common.ENV_DOT_CACHE_DIR)
 	if cacheDir != "" {
 		return cacheDir
 	}
@@ -107,5 +107,5 @@ func getCacheContainingDir() string {
 	if err != nil {
 		log.Fatal("Error retrieving home directory: %v", err)
 	}
-	return path.Join(homeDir, ".cache", "doot")
+	return path.Join(homeDir, ".cache", "dot")
 }

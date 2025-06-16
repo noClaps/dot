@@ -22,11 +22,11 @@ func FindDotfilesDir() AbsolutePath {
 }
 
 func findDotfilesDir() (string, error) {
-	// 1. Try $DOOT_DIR if defined
-	if dootDir := os.Getenv(ENV_DOOT_DIR); dootDir != "" {
-		fileInfo, err := os.Stat(dootDir)
+	// 1. Try $DOT_DIR if defined
+	if dotDir := os.Getenv(ENV_DOT_DIR); dotDir != "" {
+		fileInfo, err := os.Stat(dotDir)
 		if err == nil && fileInfo.IsDir() {
-			return dootDir, nil
+			return dotDir, nil
 		}
 	}
 
@@ -51,8 +51,8 @@ func findDotfilesDir() (string, error) {
 		return dotfilesDir, nil
 	}
 
-	err = fmt.Errorf("none of the candidate dotfiles directories exist:\n  - $DOOT_DIR = '%s'\n  - %s\n  - %s",
-		os.Getenv(ENV_DOOT_DIR),
+	err = fmt.Errorf("none of the candidate dotfiles directories exist:\n  - $DOT_DIR = '%s'\n  - %s\n  - %s",
+		os.Getenv(ENV_DOT_DIR),
 		filepath.Join(xdgDataHome, "dotfiles"),
 		filepath.Join(homeDir, ".dotfiles"))
 	return "", err

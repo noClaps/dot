@@ -568,7 +568,7 @@ func (o *CacheEntry) UnmarshalBinary(data []byte) error {
 	return err
 }
 
-type DootCache struct {
+type DotCache struct {
 	Version uint32
 
 	Entries []*CacheEntry
@@ -577,7 +577,7 @@ type DootCache struct {
 // MarshalTo encodes o as Colfer into buf and returns the number of bytes written.
 // If the buffer is too small, MarshalTo will panic.
 // All nil entries in o.Entries will be replaced with a new value.
-func (o *DootCache) MarshalTo(buf []byte) int {
+func (o *DotCache) MarshalTo(buf []byte) int {
 	var i int
 
 	if x := o.Version; x >= 1<<21 {
@@ -623,7 +623,7 @@ func (o *DootCache) MarshalTo(buf []byte) int {
 
 // MarshalLen returns the Colfer serial byte size.
 // The error return option is cache.ColferMax.
-func (o *DootCache) MarshalLen() (int, error) {
+func (o *DotCache) MarshalLen() (int, error) {
 	l := 1
 
 	if x := o.Version; x >= 1<<21 {
@@ -636,7 +636,7 @@ func (o *DootCache) MarshalLen() (int, error) {
 
 	if x := len(o.Entries); x != 0 {
 		if x > ColferListMax {
-			return 0, ColferMax(fmt.Sprintf("colfer: field cache.DootCache.entries exceeds %d elements", ColferListMax))
+			return 0, ColferMax(fmt.Sprintf("colfer: field cache.DotCache.entries exceeds %d elements", ColferListMax))
 		}
 		for l += 2; x >= 0x80; l++ {
 			x >>= 7
@@ -653,12 +653,12 @@ func (o *DootCache) MarshalLen() (int, error) {
 			l += vl
 		}
 		if l > ColferSizeMax {
-			return 0, ColferMax(fmt.Sprintf("colfer: struct cache.DootCache size exceeds %d bytes", ColferSizeMax))
+			return 0, ColferMax(fmt.Sprintf("colfer: struct cache.DotCache size exceeds %d bytes", ColferSizeMax))
 		}
 	}
 
 	if l > ColferSizeMax {
-		return l, ColferMax(fmt.Sprintf("colfer: struct cache.DootCache exceeds %d bytes", ColferSizeMax))
+		return l, ColferMax(fmt.Sprintf("colfer: struct cache.DotCache exceeds %d bytes", ColferSizeMax))
 	}
 	return l, nil
 }
@@ -666,7 +666,7 @@ func (o *DootCache) MarshalLen() (int, error) {
 // MarshalBinary encodes o as Colfer conform encoding.BinaryMarshaler.
 // All nil entries in o.Entries will be replaced with a new value.
 // The error return option is cache.ColferMax.
-func (o *DootCache) MarshalBinary() (data []byte, err error) {
+func (o *DotCache) MarshalBinary() (data []byte, err error) {
 	l, err := o.MarshalLen()
 	if err != nil {
 		return nil, err
@@ -678,7 +678,7 @@ func (o *DootCache) MarshalBinary() (data []byte, err error) {
 
 // Unmarshal decodes data as Colfer and returns the number of bytes read.
 // The error return options are io.EOF, cache.ColferError and cache.ColferMax.
-func (o *DootCache) Unmarshal(data []byte) (int, error) {
+func (o *DotCache) Unmarshal(data []byte) (int, error) {
 	if len(data) == 0 {
 		return 0, io.EOF
 	}
@@ -749,7 +749,7 @@ func (o *DootCache) Unmarshal(data []byte) (int, error) {
 		}
 
 		if x > uint(ColferListMax) {
-			return 0, ColferMax(fmt.Sprintf("colfer: cache.DootCache.entries length %d exceeds %d elements", x, ColferListMax))
+			return 0, ColferMax(fmt.Sprintf("colfer: cache.DotCache.entries length %d exceeds %d elements", x, ColferListMax))
 		}
 
 		l := int(x)
@@ -762,7 +762,7 @@ func (o *DootCache) Unmarshal(data []byte) (int, error) {
 			n, err := v.Unmarshal(data[i:])
 			if err != nil {
 				if err == io.EOF && len(data) >= ColferSizeMax {
-					return 0, ColferMax(fmt.Sprintf("colfer: cache.DootCache size exceeds %d bytes", ColferSizeMax))
+					return 0, ColferMax(fmt.Sprintf("colfer: cache.DotCache size exceeds %d bytes", ColferSizeMax))
 				}
 				return 0, err
 			}
@@ -785,14 +785,14 @@ func (o *DootCache) Unmarshal(data []byte) (int, error) {
 	}
 eof:
 	if i >= ColferSizeMax {
-		return 0, ColferMax(fmt.Sprintf("colfer: struct cache.DootCache size exceeds %d bytes", ColferSizeMax))
+		return 0, ColferMax(fmt.Sprintf("colfer: struct cache.DotCache size exceeds %d bytes", ColferSizeMax))
 	}
 	return 0, io.EOF
 }
 
 // UnmarshalBinary decodes data as Colfer conform encoding.BinaryUnmarshaler.
 // The error return options are io.EOF, cache.ColferError, cache.ColferTail and cache.ColferMax.
-func (o *DootCache) UnmarshalBinary(data []byte) error {
+func (o *DotCache) UnmarshalBinary(data []byte) error {
 	i, err := o.Unmarshal(data)
 	if i < len(data) && err == nil {
 		return ColferTail(i)

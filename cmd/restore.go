@@ -8,7 +8,7 @@ import (
 var restoreCmd = &cobra.Command{
 	GroupID: basicCommandsGroup.ID,
 	Use:     "restore <file> [file2 ...]",
-	Short:   "Opposite of 'doot add'. Replace symlinks with the original files.",
+	Short:   "Opposite of 'dot add'. Replace symlinks with the original files.",
 	Run: func(cmd *cobra.Command, args []string) {
 		restore.Restore(args)
 	},

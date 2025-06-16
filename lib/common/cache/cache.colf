@@ -14,7 +14,7 @@ type CacheEntry struct {
 	installedFiles InstalledFilesCache
 }
 
-type DootCache struct {
+type DotCache struct {
 	version uint32
 	entries []CacheEntry
 }
