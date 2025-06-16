@@ -30,11 +30,6 @@ var basicCommandsGroup = &cobra.Group{
 	Title: "Basic commands:",
 }
 
-var advancedCommandsGroup = &cobra.Group{
-	ID:    "advancedCommands",
-	Title: "Advanced commands:",
-}
-
 var otherCommandsGroup = &cobra.Group{
 	ID:    "otherCommands",
 	Title: "Other commands:",
@@ -42,7 +37,6 @@ var otherCommandsGroup = &cobra.Group{
 
 func init() {
 	rootCmd.AddGroup(basicCommandsGroup)
-	rootCmd.AddGroup(advancedCommandsGroup)
 	rootCmd.AddGroup(otherCommandsGroup)
 
 	rootCmd.Flags().Bool("full-clean", false, "Search and remove all broken symlinks that point to the dotfiles directory, even if they were created by another program. Can be slow.")
