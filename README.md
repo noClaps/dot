@@ -22,7 +22,7 @@ Simply run `dot` (or `dot install`) from anywhere in your system. It will symlin
 The subsequent runs will incrementally update the symlinks, adding the new files and directories, and removing references to files that are no longer in the dotfiles directory.
 
 ```sh
-git clone https://your-dotfiles.git ~/.dotfiles # (or any other directory)
+git clone https://your-dotfiles.git ~/.dotfiles
 
 dot  # Installs or updates the symlinks
 ```
@@ -47,18 +47,4 @@ dot add ./some/file [/other/file ...]
 
 ## Dotfiles directory location
 
-By default, `dot` searches for your dotfiles in commonly used directories. In order of priority, it looks for the first directory that exists:
-
-1. `$DOT_DIR`
-
-2. `$XDG_DATA_HOME/dotfiles` (or `$HOME/.local/share/dotfiles` if `XDG_DATA_HOME` is not set)
-
-3. `$HOME/.dotfiles`
-
-Notice how you can set the `DOT_DIR` environment variable to use any custom directory. The first time you run `dot`, if that variable is not yet defined globally, you can set it inline:
-
-```sh
-DOT_DIR=/path/to/your/dotfiles dot
-```
-
-After that, if you have set `DOT_DIR` in your shell configuration file (`~/.bashrc` or equivalent), you can just run `dot` as usual.
+`dot` searches for your dotfiles in `$HOME/.dotfiles`.
