@@ -3,7 +3,7 @@ package cmd
 import (
 	"os"
 
-	"github.com/pol-rivero/doot/lib"
+	"github.com/noclaps/dot/lib"
 	"github.com/spf13/cobra"
 )
 

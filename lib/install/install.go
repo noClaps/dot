@@ -3,10 +3,10 @@ package install
 import (
 	"path/filepath"
 
-	"github.com/pol-rivero/doot/lib/common"
-	"github.com/pol-rivero/doot/lib/common/cache"
-	"github.com/pol-rivero/doot/lib/common/config"
-	. "github.com/pol-rivero/doot/lib/types"
+	"github.com/noclaps/dot/lib/common"
+	"github.com/noclaps/dot/lib/common/cache"
+	"github.com/noclaps/dot/lib/common/config"
+	. "github.com/noclaps/dot/lib/types"
 )
 
 type GetFilesFunc func(*config.Config, AbsolutePath) []RelativePath

@@ -4,9 +4,9 @@ import (
 	"os"
 	"path"
 
-	"github.com/pol-rivero/doot/lib/common"
-	"github.com/pol-rivero/doot/lib/common/log"
-	. "github.com/pol-rivero/doot/lib/types"
+	"github.com/noclaps/dot/lib/common"
+	"github.com/noclaps/dot/lib/common/log"
+	. "github.com/noclaps/dot/lib/types"
 )
 
 const CURRENT_CACHE_VERSION uint32 = 2

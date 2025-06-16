@@ -1,4 +1,4 @@
-module github.com/pol-rivero/doot
+module github.com/noclaps/dot
 
 go 1.24.0
 

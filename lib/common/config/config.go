@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/noclaps/dot/lib/common/log"
+	. "github.com/noclaps/dot/lib/types"
 	"github.com/pelletier/go-toml/v2"
-	"github.com/pol-rivero/doot/lib/common/log"
-	. "github.com/pol-rivero/doot/lib/types"
 )
 
 type Config struct {

@@ -3,10 +3,10 @@ package ls
 import (
 	"path/filepath"
 
-	"github.com/pol-rivero/doot/lib/common"
-	"github.com/pol-rivero/doot/lib/common/cache"
-	"github.com/pol-rivero/doot/lib/common/config"
-	"github.com/pol-rivero/doot/lib/common/log"
+	"github.com/noclaps/dot/lib/common"
+	"github.com/noclaps/dot/lib/common/cache"
+	"github.com/noclaps/dot/lib/common/config"
+	"github.com/noclaps/dot/lib/common/log"
 )
 
 func ListInstalledFiles(asJson bool) {

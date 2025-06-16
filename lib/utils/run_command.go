@@ -5,8 +5,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/pol-rivero/doot/lib/common/log"
-	. "github.com/pol-rivero/doot/lib/types"
+	"github.com/noclaps/dot/lib/common/log"
+	. "github.com/noclaps/dot/lib/types"
 )
 
 func RunCommand(pwd AbsolutePath, command string, args ...string) error {

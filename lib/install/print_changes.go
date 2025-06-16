@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/pol-rivero/doot/lib/common/log"
-	. "github.com/pol-rivero/doot/lib/types"
+	"github.com/noclaps/dot/lib/common/log"
+	. "github.com/noclaps/dot/lib/types"
 )
 
 func printChanges(added []AbsolutePath, removed []AbsolutePath) {

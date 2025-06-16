@@ -5,13 +5,13 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/pol-rivero/doot/lib/common/config"
-	"github.com/pol-rivero/doot/lib/common/log"
-	. "github.com/pol-rivero/doot/lib/types"
-	"github.com/pol-rivero/doot/lib/utils"
-	"github.com/pol-rivero/doot/lib/utils/files"
-	"github.com/pol-rivero/doot/lib/utils/optional"
-	"github.com/pol-rivero/doot/lib/utils/set"
+	"github.com/noclaps/dot/lib/common/config"
+	"github.com/noclaps/dot/lib/common/log"
+	. "github.com/noclaps/dot/lib/types"
+	"github.com/noclaps/dot/lib/utils"
+	"github.com/noclaps/dot/lib/utils/files"
+	"github.com/noclaps/dot/lib/utils/optional"
+	"github.com/noclaps/dot/lib/utils/set"
 )
 
 type SourcePath struct {

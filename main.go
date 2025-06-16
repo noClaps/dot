@@ -1,6 +1,6 @@
 package main
 
-import "github.com/pol-rivero/doot/cmd"
+import "github.com/noclaps/dot/cmd"
 
 func main() {
 	cmd.Execute()

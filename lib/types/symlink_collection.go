@@ -5,7 +5,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/pol-rivero/doot/lib/utils/optional"
+	"github.com/noclaps/dot/lib/utils/optional"
 )
 
 type SymlinkCollection struct {

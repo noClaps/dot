@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/pol-rivero/doot/lib/common/log"
+	"github.com/noclaps/dot/lib/common/log"
 	"github.com/spf13/cobra"
 )
 

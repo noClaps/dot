@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/pol-rivero/doot/lib/common/cache"
-	"github.com/pol-rivero/doot/lib/common/log"
-	. "github.com/pol-rivero/doot/lib/types"
+	"github.com/noclaps/dot/lib/common/cache"
+	"github.com/noclaps/dot/lib/common/log"
+	. "github.com/noclaps/dot/lib/types"
 )
 
 func recalculateCache(installedFilesCache *cache.InstalledFilesCache, dotfilesDir AbsolutePath, scanPath string) {

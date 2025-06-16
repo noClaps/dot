@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/pol-rivero/doot/lib/common/glob_collection"
-	. "github.com/pol-rivero/doot/lib/types"
-	"github.com/pol-rivero/doot/lib/utils/set"
+	"github.com/noclaps/dot/lib/common/glob_collection"
+	. "github.com/noclaps/dot/lib/types"
+	"github.com/noclaps/dot/lib/utils/set"
 )
 
 type ProcessAddedFileParams struct {

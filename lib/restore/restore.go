@@ -5,12 +5,12 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/pol-rivero/doot/lib/common"
-	"github.com/pol-rivero/doot/lib/common/cache"
-	"github.com/pol-rivero/doot/lib/common/config"
-	"github.com/pol-rivero/doot/lib/common/log"
-	. "github.com/pol-rivero/doot/lib/types"
-	"github.com/pol-rivero/doot/lib/utils/files"
+	"github.com/noclaps/dot/lib/common"
+	"github.com/noclaps/dot/lib/common/cache"
+	"github.com/noclaps/dot/lib/common/config"
+	"github.com/noclaps/dot/lib/common/log"
+	. "github.com/noclaps/dot/lib/types"
+	"github.com/noclaps/dot/lib/utils/files"
 )
 
 func Restore(inputFiles []string) {
