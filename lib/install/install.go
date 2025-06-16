@@ -11,31 +11,28 @@ import (
 
 type GetFilesFunc func(*config.Config, AbsolutePath) []RelativePath
 
-func Install(fullClean bool) {
+func Install() {
 	getFiles := func(config *config.Config, dotfilesDir AbsolutePath) []RelativePath {
 		filter := CreateFilter(config)
 		return ScanDirectory(dotfilesDir, &filter)
 	}
-	installImpl(getFiles, fullClean)
+	installImpl(getFiles)
 }
 
-func Clean(fullClean bool) {
+func Clean() {
 	getFiles := func(config *config.Config, dotfilesDir AbsolutePath) []RelativePath {
 		return []RelativePath{}
 	}
-	installImpl(getFiles, fullClean)
+	installImpl(getFiles)
 }
 
-func installImpl(getFiles GetFilesFunc, fullClean bool) {
+func installImpl(getFiles GetFilesFunc) {
 	dotfilesDir := common.FindDotfilesDir()
 	config := config.GetConfig()
 
 	cacheKey := dotfilesDir.Str() + string(filepath.ListSeparator) + config.TargetDir
 	cache := cache.Load()
 	installedFilesCache := cache.GetEntry(cacheKey)
-	if fullClean {
-		recalculateCache(installedFilesCache, dotfilesDir, config.TargetDir)
-	}
 
 	fileList := getFiles(&config, dotfilesDir)
 	fileMapping := NewFileMapping(dotfilesDir, &config, fileList)

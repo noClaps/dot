@@ -32,7 +32,5 @@ var basicCommandsGroup = &cobra.Group{
 func init() {
 	rootCmd.AddGroup(basicCommandsGroup)
 
-	rootCmd.Flags().Bool("full-clean", false, "Search and remove all broken symlinks that point to the dotfiles directory, even if they were created by another program. Can be slow.")
-
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 }

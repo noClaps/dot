@@ -33,8 +33,6 @@ To remove the symlinks, run:
 dot clean
 ```
 
-Pass `--full-clean` to the `install` or `clean` commands to search for all symlinks that point to the dotfiles directory, even if they were created by another program. This is useful if you created symlinks manually or your dotfiles installation has somehow become corrupted.
-
 ## Dotfiles directory location
 
 `dot` searches for your dotfiles in `$HOME/.dotfiles`.
