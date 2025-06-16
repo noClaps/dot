@@ -9,7 +9,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "dot",
-	Short: "A fast and simple dotfiles manager that just gets the job done.\nVersion: " + VERSION_STRING,
+	Short: "A fast and simple dotfiles manager that just gets the job done.",
 	Run: func(cmd *cobra.Command, args []string) {
 		lib.ExecuteRootCmd(cmd)
 	},
