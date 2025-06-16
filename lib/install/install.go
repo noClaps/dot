@@ -37,7 +37,6 @@ func installImpl(getFiles GetFilesFunc, fullClean bool) {
 		recalculateCache(installedFilesCache, dotfilesDir, config.TargetDir)
 	}
 
-	common.RunHooks(dotfilesDir, "before-update")
 	fileList := getFiles(&config, dotfilesDir)
 	fileMapping := NewFileMapping(dotfilesDir, &config, fileList)
 
@@ -48,6 +47,5 @@ func installImpl(getFiles GetFilesFunc, fullClean bool) {
 	installedFilesCache.SetLinks(fileMapping.GetInstalledTargets())
 	cache.Save()
 
-	common.RunHooks(dotfilesDir, "after-update")
 	printChanges(added, removed)
 }
