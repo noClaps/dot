@@ -45,10 +45,6 @@ doot add ./some/file [/other/file ...]
 
 - You can undo this operation by running `doot restore <file1> ...`, which will replace the symlink with the original regular file, removing it from the dotfiles repository.
 
-## Example
-
-See the [`example`](example) directory for a complete example of a simple dotfiles repository.
-
 ## Dotfiles directory location
 
 By default, `doot` searches for your dotfiles in commonly used directories. In order of priority, it looks for the first directory that exists:
