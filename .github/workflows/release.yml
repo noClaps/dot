@@ -43,7 +43,7 @@ jobs:
           files: |
             dot-darwin-arm64.tar.gz
             dot-linux-amd64.tar.gz
-      - uses: noClaps/homebrew-tap-action@v1.0.0
+      - uses: noClaps/homebrew-tap-action@v1.1.0
         with:
           tap_repo: noClaps/homebrew-tap
           formula_name: dot
@@ -51,3 +51,4 @@ jobs:
           tap_token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
           macos_file: dot-darwin-arm64.tar.gz
           linux_file: dot-linux-amd64.tar.gz
+          completion_command: completion
