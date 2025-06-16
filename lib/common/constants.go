@@ -1,9 +1,6 @@
 package common
 
-import "path/filepath"
-
 const DOOT_BACKUP_EXT string = ".doot-backup"
-const CUSTOM_COMMANDS_DIR string = "doot" + string(filepath.Separator) + "commands"
 
 const IGNORE_HIDDEN_FILES_GLOB string = "**/.*"
 

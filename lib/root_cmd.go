@@ -1,18 +1,12 @@
 package lib
 
 import (
-	"github.com/pol-rivero/doot/lib/customcmd"
 	"github.com/pol-rivero/doot/lib/install"
 	"github.com/spf13/cobra"
 )
 
 func ExecuteRootCmd(cmd *cobra.Command, rawArgs []string) {
-	isCustomCommand := len(rawArgs) > 0
-	if isCustomCommand {
-		customcmd.CustomCommand(rawArgs[0], rawArgs[1:])
-	} else {
-		ExecuteInstall(cmd)
-	}
+	ExecuteInstall(cmd)
 }
 
 func ExecuteInstall(cmd *cobra.Command) {

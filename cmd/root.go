@@ -41,10 +41,6 @@ var otherCommandsGroup = &cobra.Group{
 }
 
 func init() {
-	// This is required for custom commands
-	rootCmd.Args = cobra.ArbitraryArgs
-	rootCmd.Flags().SetInterspersed(false)
-
 	rootCmd.AddGroup(basicCommandsGroup)
 	rootCmd.AddGroup(advancedCommandsGroup)
 	rootCmd.AddGroup(otherCommandsGroup)
