@@ -1,7 +1,6 @@
 package types
 
 import (
-	"encoding/json"
 	"slices"
 	"strings"
 
@@ -58,12 +57,4 @@ func (sc *SymlinkCollection) PrintList() string {
 		sb.WriteString("\n")
 	}
 	return sb.String()
-}
-
-func (sc *SymlinkCollection) ToJson() string {
-	jsonBytes, err := json.Marshal(sc.links)
-	if err != nil {
-		return ""
-	}
-	return string(jsonBytes)
 }

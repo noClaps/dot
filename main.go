@@ -23,7 +23,7 @@ func main() {
 		return
 	}
 	if args.List {
-		ls.ListInstalledFiles(false)
+		ls.ListInstalledFiles()
 		return
 	}
 

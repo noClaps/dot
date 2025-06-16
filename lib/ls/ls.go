@@ -9,7 +9,7 @@ import (
 	"github.com/noclaps/dot/lib/common/log"
 )
 
-func ListInstalledFiles(asJson bool) {
+func ListInstalledFiles() {
 	dotfilesDir := common.FindDotfilesDir()
 	config := config.GetConfig()
 
@@ -18,9 +18,5 @@ func ListInstalledFiles(asJson bool) {
 	installedFilesCache := cache.GetEntry(cacheKey)
 
 	installedLinks := installedFilesCache.GetLinks()
-	if asJson {
-		log.Printlnf("%s", installedLinks.ToJson())
-	} else {
-		log.Printlnf("%s", installedLinks.PrintList())
-	}
+	log.Printlnf("%s", installedLinks.PrintList())
 }
