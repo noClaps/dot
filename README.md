@@ -7,14 +7,14 @@ A fast, simple and intuitive dotfiles manager that just gets the job done. **[Sh
 <details>
 <summary>From the <b>AUR</b> (Arch Linux, Manjaro, and other Arch-based distributions)</summary>
 
-&nbsp;  
+&nbsp;
 I recommend installing the `doot-bin` package, which is a pre-compiled binary.
 
 |Pre-compiled binary|Build from source|Latest Git commit|
 |---|---|---|
 |`yay -S doot-bin`|`yay -S doot`|`yay -S doot-git`|
 
-&nbsp;  
+&nbsp;
 </details>
 
 
@@ -22,7 +22,7 @@ I recommend installing the `doot-bin` package, which is a pre-compiled binary.
 <details>
 <summary>Using <b>Homebrew</b> (Linux and macOS)</summary>
 
-&nbsp;  
+&nbsp;
 Install `doot` from Homebrew:
 
 ```sh
@@ -31,7 +31,7 @@ brew install pol-rivero/tap/doot
 
 Make sure to run `brew update && brew upgrade` periodically to keep `doot` up to date.
 
-&nbsp;  
+&nbsp;
 </details>
 
 
@@ -39,7 +39,7 @@ Make sure to run `brew update && brew upgrade` periodically to keep `doot` up to
 <details>
 <summary>Using the <b>installer script</b> (Linux and macOS)</summary>
 
-&nbsp;  
+&nbsp;
 Run the following command:
 
 ```sh
@@ -52,7 +52,7 @@ curl -sSL get-doot.polrivero.com | sh
 
 - To uninstall, run the following command: `sudo rm $(which doot)`
 
-&nbsp;  
+&nbsp;
 </details>
 
 
@@ -60,8 +60,8 @@ curl -sSL get-doot.polrivero.com | sh
 <details>
 <summary>Linux manual installation</summary>
 
-&nbsp;  
-Go to the [latest GitHub release](https://github.com/pol-rivero/doot/releases/latest) and download either `doot-linux-x86_64` or `doot-linux-arm64` depending on your architecture, rename it to `doot`.  
+&nbsp;
+Go to the [latest GitHub release](https://github.com/pol-rivero/doot/releases/latest) and download either `doot-linux-x86_64` or `doot-linux-arm64` depending on your architecture, rename it to `doot`.
 Make it executable and move it to any directory in your `PATH`:
 
 ```sh
@@ -69,10 +69,10 @@ chmod +x doot
 sudo mv doot /usr/local/bin
 ```
 
-**Want to contribute?**  
+**Want to contribute?**
 If your distribution doesn't have a package for `doot`, consider helping out by creating and submitting it to your distribution's package manager. Please [open an issue](https://github.com/pol-rivero/doot/issues) in order to discuss it and coordinate the effort.
 
-&nbsp;  
+&nbsp;
 </details>
 
 
@@ -80,8 +80,8 @@ If your distribution doesn't have a package for `doot`, consider helping out by 
 <details>
 <summary>macOS manual installation</summary>
 
-&nbsp;  
-Go to the [latest GitHub release](https://github.com/pol-rivero/doot/releases/latest) and download either `doot-darwin-x86_64` or `doot-darwin-arm64` depending on your architecture, rename it to `doot`.  
+&nbsp;
+Go to the [latest GitHub release](https://github.com/pol-rivero/doot/releases/latest) and download either `doot-darwin-x86_64` or `doot-darwin-arm64` depending on your architecture, rename it to `doot`.
 Make it executable and move it to any directory in your `PATH`:
 
 ```sh
@@ -89,7 +89,7 @@ chmod +x doot
 sudo mv doot /usr/local/bin
 ```
 
-&nbsp;  
+&nbsp;
 </details>
 
 
@@ -97,11 +97,11 @@ sudo mv doot /usr/local/bin
 <details>
 <summary>Windows</summary>
 
-&nbsp;  
-**Windows is not officially supported.** I'm not sure how Windows handles symlinks, so I can't guarantee that `doot` will work as expected.  
+&nbsp;
+**Windows is not officially supported.** I'm not sure how Windows handles symlinks, so I can't guarantee that `doot` will work as expected.
 If you want to give it a try, you can download the latest release from the [GitHub releases page](https://github.com/pol-rivero/doot/releases/latest).
 
-&nbsp;  
+&nbsp;
 </details>
 
 ## Usage
@@ -136,22 +136,7 @@ You could manually move the file to the dotfiles directory and run `doot` to sym
 doot add ./some/file [/other/file ...]
 ```
 
-- Pass `--crypt` to add a file as a private (encrypted) file. See [the documentation](https://github.com/pol-rivero/doot/wiki/Private-(encrypted)-files) for more information.
-
-- If you have more than one machine and this file is only applicable to the current one, pass `--host` to add it as a host-specific file. See `hosts` in the configuration file below.
-
 - You can undo this operation by running `doot restore <file1> ...`, which will replace the symlink with the original regular file, removing it from the dotfiles repository.
-
-### Advanced usage
-
-- [`doot crypt`: Manage private (encrypted) files](https://github.com/pol-rivero/doot/wiki/Private-(encrypted)-files)
-
-- [`doot bootstrap`: Automatically download and apply your dotfiles](https://github.com/pol-rivero/doot/wiki/Bootstrap)
-
-- [Hooks: Run custom scripts before and after the installation process](https://github.com/pol-rivero/doot/wiki/Hooks)
-
-- [Need more control? Create your own custom commands](https://github.com/pol-rivero/doot/wiki/Custom-Commands)
-
 
 ## Example
 
@@ -210,10 +195,4 @@ implicit_dot_ignore = [
 
 # Command and flags to use for displaying diffs. Use any tool and format you like, but it must accept 2 positional arguments for the files to compare.
 diff_command = "diff --unified --color=always"
-
-# Key-value pairs of "host name" -> "host-specific directory".
-# In the example below, <dotfiles dir>/laptop-dots/.zshrc will be symlinked to ~/.zshrc, taking precedence over <dotfiles dir>/.zshrc, if the hostname is "my-laptop".
-# If `implicit_dot` is set to true, the host-specific directories also count as top-level. For example, <dotfiles dir>/laptop-dots/config/foo will be symlinked to ~/.config/foo.
-[hosts]
-# my-laptop = "laptop-dots"
 ```

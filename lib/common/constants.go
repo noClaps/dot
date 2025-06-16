@@ -2,8 +2,6 @@ package common
 
 import "path/filepath"
 
-const DOOT_CRYPT_EXT_WITHOUT_DOT string = "doot-crypt"
-const DOOT_CRYPT_EXT string = "." + DOOT_CRYPT_EXT_WITHOUT_DOT
 const DOOT_BACKUP_EXT string = ".doot-backup"
 const HOOKS_DIR string = "doot" + string(filepath.Separator) + "hooks"
 const CUSTOM_COMMANDS_DIR string = "doot" + string(filepath.Separator) + "commands"

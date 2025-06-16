@@ -6,7 +6,6 @@ import (
 	"github.com/pol-rivero/doot/lib/common"
 	"github.com/pol-rivero/doot/lib/common/cache"
 	"github.com/pol-rivero/doot/lib/common/config"
-	"github.com/pol-rivero/doot/lib/crypt"
 	. "github.com/pol-rivero/doot/lib/types"
 )
 
@@ -14,8 +13,7 @@ type GetFilesFunc func(*config.Config, AbsolutePath) []RelativePath
 
 func Install(fullClean bool) {
 	getFiles := func(config *config.Config, dotfilesDir AbsolutePath) []RelativePath {
-		ignoreDootCrypt := !crypt.GitCryptIsInitialized(dotfilesDir)
-		filter := CreateFilter(config, ignoreDootCrypt)
+		filter := CreateFilter(config)
 		return ScanDirectory(dotfilesDir, &filter)
 	}
 	installImpl(getFiles, fullClean)

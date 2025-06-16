@@ -3,7 +3,6 @@ package install
 import (
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/pol-rivero/doot/lib/common"
 	"github.com/pol-rivero/doot/lib/common/config"
@@ -14,13 +13,12 @@ import (
 
 type FileFilter struct {
 	IgnoreHidden        bool
-	IgnoreDootCrypt     bool
 	ExploreExcludedDirs bool
 	ExcludeGlobs        glob_collection.GlobCollection
 	IncludeGlobs        glob_collection.GlobCollection
 }
 
-func CreateFilter(config *config.Config, ignoreDootCrypt bool) FileFilter {
+func CreateFilter(config *config.Config) FileFilter {
 	ignoreHidden := false
 	newExcludeFiles := make([]string, 0, len(config.ExcludeFiles))
 	for _, excludePattern := range config.ExcludeFiles {
@@ -32,7 +30,6 @@ func CreateFilter(config *config.Config, ignoreDootCrypt bool) FileFilter {
 	}
 	return FileFilter{
 		IgnoreHidden:        ignoreHidden,
-		IgnoreDootCrypt:     ignoreDootCrypt,
 		ExploreExcludedDirs: config.ExploreExcludedDirs,
 		ExcludeGlobs:        glob_collection.NewGlobCollection(newExcludeFiles),
 		IncludeGlobs:        glob_collection.NewGlobCollection(config.IncludeFiles),
@@ -76,7 +73,5 @@ func (f *FileFilter) isExcluded(path RelativePath, fileName string, inExcludedDi
 }
 
 func (f *FileFilter) matchesExcludePattern(path RelativePath, fileName string) bool {
-	return (f.IgnoreHidden && fileName[0] == '.') ||
-		(f.IgnoreDootCrypt && strings.Contains(fileName, common.DOOT_CRYPT_EXT)) ||
-		f.ExcludeGlobs.Matches(path)
+	return (f.IgnoreHidden && fileName[0] == '.') || f.ExcludeGlobs.Matches(path)
 }

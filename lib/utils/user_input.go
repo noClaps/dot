@@ -9,7 +9,7 @@ const MOCK_NO_INPUT string = "__NoInput__"
 
 var USER_INPUT_MOCK_RESPONSE string = ""
 
-func RequestInput(options string, format string, args ...interface{}) rune {
+func RequestInput(options string, format string, args ...any) rune {
 	suffix := fmt.Sprintf(" [%s] ", addSlashes(options))
 	fmt.Printf(format+suffix, args...)
 	defaultResponse := ensureLower(getFirstUpperRune(options))

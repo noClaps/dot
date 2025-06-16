@@ -8,29 +8,21 @@ import (
 	"github.com/pol-rivero/doot/lib/common/config"
 	"github.com/pol-rivero/doot/lib/common/glob_collection"
 	"github.com/pol-rivero/doot/lib/common/log"
-	"github.com/pol-rivero/doot/lib/crypt"
 	"github.com/pol-rivero/doot/lib/install"
 	. "github.com/pol-rivero/doot/lib/types"
 	"github.com/pol-rivero/doot/lib/utils/set"
 )
 
-func Add(files []string, isCrypt bool, isHostSpecific bool) {
+func Add(files []string) {
 	dotfilesDir := common.FindDotfilesDir()
 	config := config.FromDotfilesDir(dotfilesDir)
 	params := ProcessAddedFileParams{
-		crypt:             isCrypt,
-		hostSpecificDir:   getHostSpecificDir(&config, isHostSpecific),
 		dotfilesDir:       dotfilesDir.Str(),
 		targetDir:         config.TargetDir,
 		implicitDot:       config.ImplicitDot,
 		implicitDotIgnore: set.NewFromSlice(config.ImplicitDotIgnore),
 		includeFiles:      glob_collection.NewGlobCollection(config.IncludeFiles),
 		excludeFiles:      glob_collection.NewGlobCollection(config.ExcludeFiles),
-	}
-
-	if isCrypt && !crypt.GitCryptIsInitialized(dotfilesDir) {
-		log.Error("Can't add private files with --crypt flag because repository is not initialized. Run 'doot crypt init' first.")
-		return
 	}
 
 	for _, file := range files {
@@ -58,24 +50,6 @@ func Add(files []string, isCrypt bool, isHostSpecific bool) {
 
 	log.Info("Files have been copied to the dotfiles directory, now running 'install'...")
 	install.Install(false)
-}
-
-func getHostSpecificDir(config *config.Config, isHostSpecific bool) string {
-	if !isHostSpecific {
-		return ""
-	}
-	hostname, err := os.Hostname()
-	if err != nil {
-		log.Error("Error getting hostname: %v", err)
-		return ""
-	}
-	hostSpecificDir, ok := config.Hosts[hostname]
-	if !ok {
-		log.Fatal(`--host flag is set but your hostname (%s) is not in the hosts map. Consider adding the following to your doot config:
-[hosts]
-%s = "%s-files"`, hostname, hostname, hostname)
-	}
-	return hostSpecificDir
 }
 
 func handleDotfileAlreadyExists(targetFile string, dotfilePath AbsolutePath) {

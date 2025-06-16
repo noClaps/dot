@@ -11,14 +11,13 @@ import (
 )
 
 type Config struct {
-	TargetDir           string            `toml:"target_dir"`
-	ExcludeFiles        []string          `toml:"exclude_files"`
-	IncludeFiles        []string          `toml:"include_files"`
-	ExploreExcludedDirs bool              `toml:"explore_excluded_dirs"`
-	ImplicitDot         bool              `toml:"implicit_dot"`
-	ImplicitDotIgnore   []string          `toml:"implicit_dot_ignore"`
-	DiffCommand         string            `toml:"diff_command"`
-	Hosts               map[string]string `toml:"hosts"`
+	TargetDir           string   `toml:"target_dir"`
+	ExcludeFiles        []string `toml:"exclude_files"`
+	IncludeFiles        []string `toml:"include_files"`
+	ExploreExcludedDirs bool     `toml:"explore_excluded_dirs"`
+	ImplicitDot         bool     `toml:"implicit_dot"`
+	ImplicitDotIgnore   []string `toml:"implicit_dot_ignore"`
+	DiffCommand         string   `toml:"diff_command"`
 }
 
 func DefaultConfig() Config {
@@ -34,7 +33,6 @@ func DefaultConfig() Config {
 		ImplicitDot:         true,
 		ImplicitDotIgnore:   []string{},
 		DiffCommand:         "diff --unified --color=always",
-		Hosts:               map[string]string{},
 	}
 }
 
