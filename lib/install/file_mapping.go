@@ -24,7 +24,6 @@ type FileMapping struct {
 	targetBaseDir     AbsolutePath
 	implicitDot       bool
 	implicitDotIgnore set.Set[string]
-	diffCommand       string
 	targetsSkipped    []AbsolutePath
 }
 
@@ -35,7 +34,6 @@ func NewFileMapping(dotfilesDir AbsolutePath, config *config.Config, sourceFiles
 		targetBaseDir:     NewAbsolutePath(config.TargetDir),
 		implicitDot:       config.ImplicitDot,
 		implicitDotIgnore: set.NewFromSlice(config.ImplicitDotIgnore),
-		diffCommand:       config.DiffCommand,
 		targetsSkipped:    make([]AbsolutePath, 0),
 	}
 	for _, sourceFile := range sourceFiles {
@@ -183,7 +181,7 @@ func (fm *FileMapping) handleExistingFile(target, source AbsolutePath) bool {
 		return err == nil
 	}
 	for {
-		replace := utils.RequestInput("yNda", "File %s already exists, but its contents differ from %s. Replace it? (D to see diff, A to adopt changes into dotfiles repo)", target, source)
+		replace := utils.RequestInput("yNa", "File %s already exists, but its contents differ from %s. Replace it? (A to adopt changes into dotfiles repo)", target, source)
 		switch replace {
 		case 'y':
 			err := files.ReplaceWithSymlink(target, source)
@@ -191,8 +189,6 @@ func (fm *FileMapping) handleExistingFile(target, source AbsolutePath) bool {
 		case 'n':
 			fm.targetsSkipped = append(fm.targetsSkipped, target)
 			return false
-		case 'd':
-			fm.printDiff(source, target)
 		case 'a':
 			err := files.AdoptChanges(target, source)
 			return err == nil
@@ -214,11 +210,4 @@ func canBeSafelyRemoved(linkPath AbsolutePath, expectedDestinationDir AbsolutePa
 		return false
 	}
 	return strings.HasPrefix(linkSource, expectedDestinationDir.Str())
-}
-
-func (fm *FileMapping) printDiff(leftFile AbsolutePath, rightFile AbsolutePath) {
-	err := utils.RunCommandStr(fm.sourceBaseDir, fm.diffCommand, leftFile.Str(), rightFile.Str())
-	if err != nil {
-		log.Info("Diff command had non-zero exit code: %s. This is usually not a problem.", err)
-	}
 }

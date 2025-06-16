@@ -17,7 +17,6 @@ type Config struct {
 	ExploreExcludedDirs bool     `toml:"explore_excluded_dirs"`
 	ImplicitDot         bool     `toml:"implicit_dot"`
 	ImplicitDotIgnore   []string `toml:"implicit_dot_ignore"`
-	DiffCommand         string   `toml:"diff_command"`
 }
 
 func DefaultConfig() Config {
@@ -32,7 +31,6 @@ func DefaultConfig() Config {
 		ExploreExcludedDirs: false,
 		ImplicitDot:         true,
 		ImplicitDotIgnore:   []string{},
-		DiffCommand:         "diff --unified --color=always",
 	}
 }
 
@@ -67,5 +65,4 @@ func verifyConfig(config *Config) {
 				implicitDotIgnore, topLevelDir)
 		}
 	}
-	config.DiffCommand = strings.TrimSpace(os.ExpandEnv(config.DiffCommand))
 }

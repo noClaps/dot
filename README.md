@@ -99,7 +99,4 @@ implicit_dot = true
 implicit_dot_ignore = [
   "bin"
 ]
-
-# Command and flags to use for displaying diffs. Use any tool and format you like, but it must accept 2 positional arguments for the files to compare.
-diff_command = "diff --unified --color=always"
 ```
