@@ -1,5 +1,7 @@
 # dot
 
+This is a fork of [`doot`](https://github.com/pol-rivero/doot). Chances are, you'll want to use `doot` and not this fork, since this fork is highly opinionated and customised just for my personal use.
+
 A fast, simple and intuitive dotfiles manager that just gets the job done. **[Should you try it?](https://github.com/pol-rivero/doot/wiki/Should-I-use-doot%3F)**
 
 ## Install
