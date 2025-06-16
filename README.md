@@ -35,16 +35,6 @@ dot clean
 
 Pass `--full-clean` to the `install` or `clean` commands to search for all symlinks that point to the dotfiles directory, even if they were created by another program. This is useful if you created symlinks manually or your dotfiles installation has somehow become corrupted.
 
-### Add a new file to the dotfiles directory
-
-You could manually move the file to the dotfiles directory and run `dot` to symlink it, but there's a command to do it in one step:
-
-```sh
-dot add ./some/file [/other/file ...]
-```
-
-- You can undo this operation by running `dot restore <file1> ...`, which will replace the symlink with the original regular file, removing it from the dotfiles repository.
-
 ## Dotfiles directory location
 
 `dot` searches for your dotfiles in `$HOME/.dotfiles`.
