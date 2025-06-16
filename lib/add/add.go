@@ -15,7 +15,7 @@ import (
 
 func Add(files []string) {
 	dotfilesDir := common.FindDotfilesDir()
-	config := config.FromDotfilesDir(dotfilesDir)
+	config := config.GetConfig()
 	params := ProcessAddedFileParams{
 		dotfilesDir:       dotfilesDir.Str(),
 		targetDir:         config.TargetDir,

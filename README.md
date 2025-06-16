@@ -62,37 +62,3 @@ DOT_DIR=/path/to/your/dotfiles dot
 ```
 
 After that, if you have set `DOT_DIR` in your shell configuration file (`~/.bashrc` or equivalent), you can just run `dot` as usual.
-
-## Configuration file
-
-`dot` reads an optional configuration file: `<dotfiles dir>/dot/config.toml`. This file won't be symlinked when installing. These are the available options and their default values:
-
-```toml
-# Where to install the symlinks. In most cases this will be either "$HOME" (dotfiles) or "/" (root configs).
-# Must be an absolute path. It can contain environment variables.
-target_dir = "$HOME"
-
-# Files and directories to ignore. Each entry is a glob pattern relative to the dotfiles directory.
-# IMPORTANT: Hidden files/directories are ignored by default. If you set `implicit_dot` to false, you should remove the `**/.*` pattern from this list.
-exclude_files = [
-  "**/.*",
-  "LICENSE",
-  "README.md",
-]
-
-# Files and directories that are always symlinked, overriding `exclude_files`. Each entry is a glob pattern relative to the dotfiles directory.
-include_files = []
-
-# You can get a large performance boost by setting this to `false`, but read this first:
-# https://github.com/pol-rivero/doot/wiki/Tip:-set-explore_excluded_dirs-to-false
-explore_excluded_dirs = true
-
-# If set to true, files and directories in the root of the dotfiles directory will be prefixed with a dot. For example, `<dotfiles dir>/config/foo` will be symlinked to `~/.config/foo`.
-# This is useful if you don't want to have hidden files in the root of the dotfiles directory.
-implicit_dot = true
-
-# Top-level files and directories that won't be prefixed with a dot if `implicit_dot` is set to true. Each entry is the name of a file or directory in the root of the dotfiles directory.
-implicit_dot_ignore = [
-  "bin"
-]
-```

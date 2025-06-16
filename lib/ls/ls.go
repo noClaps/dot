@@ -11,7 +11,7 @@ import (
 
 func ListInstalledFiles(asJson bool) {
 	dotfilesDir := common.FindDotfilesDir()
-	config := config.FromDotfilesDir(dotfilesDir)
+	config := config.GetConfig()
 
 	cacheKey := dotfilesDir.Str() + string(filepath.ListSeparator) + config.TargetDir
 	cache := cache.Load()

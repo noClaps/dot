@@ -28,7 +28,7 @@ func Clean(fullClean bool) {
 
 func installImpl(getFiles GetFilesFunc, fullClean bool) {
 	dotfilesDir := common.FindDotfilesDir()
-	config := config.FromDotfilesDir(dotfilesDir)
+	config := config.GetConfig()
 
 	cacheKey := dotfilesDir.Str() + string(filepath.ListSeparator) + config.TargetDir
 	cache := cache.Load()

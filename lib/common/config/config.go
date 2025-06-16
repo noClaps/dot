@@ -2,24 +2,39 @@ package config
 
 import (
 	"os"
-	"path/filepath"
-	"strings"
 
 	"github.com/noclaps/dot/lib/common/log"
-	. "github.com/noclaps/dot/lib/types"
-	"github.com/pelletier/go-toml/v2"
 )
 
 type Config struct {
-	TargetDir           string   `toml:"target_dir"`
-	ExcludeFiles        []string `toml:"exclude_files"`
-	IncludeFiles        []string `toml:"include_files"`
-	ExploreExcludedDirs bool     `toml:"explore_excluded_dirs"`
-	ImplicitDot         bool     `toml:"implicit_dot"`
-	ImplicitDotIgnore   []string `toml:"implicit_dot_ignore"`
+	// Where to install the symlinks. In most cases this will be either "$HOME"
+	// (dotfiles) or "/" (root configs). Must be an absolute path. It can contain
+	// environment variables.
+	TargetDir string
+	// Files and directories to ignore. Each entry is a glob pattern relative to
+	// the dotfiles directory. IMPORTANT: Hidden files/directories are ignored by
+	// default. If you set `implicit_dot` to false, you should remove the `**/.*`
+	// pattern from this list.
+	ExcludeFiles []string
+	// Files and directories that are always symlinked, overriding
+	// `exclude_files`. Each entry is a glob pattern relative to the dotfiles
+	// directory.
+	IncludeFiles []string
+	// You can get a large performance boost by setting this to `false`, but read
+	// this first: https://github.com/pol-rivero/doot/wiki/Tip:-set-explore_excluded_dirs-to-false
+	ExploreExcludedDirs bool
+	// If set to true, files and directories in the root of the dotfiles directory
+	// will be prefixed with a dot. For example, `<dotfiles dir>/config/foo` will
+	// be symlinked to `~/.config/foo`. This is useful if you don't want to have
+	// hidden files in the root of the dotfiles directory.
+	ImplicitDot bool
+	// Top-level files and directories that won't be prefixed with a dot if
+	// `implicit_dot` is set to true. Each entry is the name of a file or
+	// directory in the root of the dotfiles directory.
+	ImplicitDotIgnore []string
 }
 
-func DefaultConfig() Config {
+func GetConfig() Config {
 	homedir, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatal("Error retrieving home directory: %v", err)
@@ -31,38 +46,5 @@ func DefaultConfig() Config {
 		ExploreExcludedDirs: false,
 		ImplicitDot:         true,
 		ImplicitDotIgnore:   []string{},
-	}
-}
-
-func FromFile(path AbsolutePath) Config {
-	config := DefaultConfig()
-	fileContents, err := os.ReadFile(path.Str())
-	if err != nil {
-		log.Info("Config file not found or unaccessible, using default config")
-		return config
-	}
-	err = toml.Unmarshal(fileContents, &config)
-	if err != nil {
-		log.Error("Error parsing config file: %v", err)
-	}
-	verifyConfig(&config)
-	return config
-}
-
-func FromDotfilesDir(dotfilesDir AbsolutePath) Config {
-	return FromFile(dotfilesDir.Join("dot").Join("config.toml"))
-}
-
-func verifyConfig(config *Config) {
-	config.TargetDir = filepath.Clean(os.ExpandEnv(config.TargetDir))
-	if !filepath.IsAbs(config.TargetDir) {
-		log.Fatal("Invalid config: 'target_dir = %s', must be an absolute path", config.TargetDir)
-	}
-	for _, implicitDotIgnore := range config.ImplicitDotIgnore {
-		if strings.ContainsRune(implicitDotIgnore, filepath.Separator) {
-			topLevelDir := RelativePath(implicitDotIgnore).TopLevelDir()
-			log.Fatal("Invalid config. 'implicit_dot_ignore -> %s' must be a top-level file or directory. Consider adding '%s' instead",
-				implicitDotIgnore, topLevelDir)
-		}
 	}
 }
