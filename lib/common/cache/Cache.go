@@ -4,7 +4,6 @@ import (
 	"os"
 	"path"
 
-	"github.com/noclaps/dot/lib/common"
 	"github.com/noclaps/dot/lib/common/log"
 	. "github.com/noclaps/dot/lib/types"
 )
@@ -98,11 +97,6 @@ func getCachePath() string {
 }
 
 func getCacheContainingDir() string {
-	cacheDir := os.Getenv(common.ENV_DOT_CACHE_DIR)
-	if cacheDir != "" {
-		return cacheDir
-	}
-
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatal("Error retrieving home directory: %v", err)
