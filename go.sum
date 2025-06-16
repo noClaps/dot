@@ -1,4 +1,4 @@
 github.com/calmh/glob v0.0.0-20220615080505-1d823af5017b h1:Fjm4GuJ+TGMgqfGHN42IQArJb77CfD/mAwLbDUoJe6g=
 github.com/calmh/glob v0.0.0-20220615080505-1d823af5017b/go.mod h1:91K7jfEsgJSyfSrX+gmrRfZMtntx6JsHolWubGXDopg=
-github.com/noclaps/applause v0.3.1 h1:uh1584F1kuL9r63pLCnXSJxO+qRhDtB1HhWF89BtJFM=
-github.com/noclaps/applause v0.3.1/go.mod h1:leCGvxrBZvIj0tfzAq92jJFANCB7Iegatva6zvSuJvQ=
+github.com/noclaps/applause v0.3.2 h1:TDgAb3RLwjzGd8uc4x/Z/vFn/zlKugMgRzIzyj/01VU=
+github.com/noclaps/applause v0.3.2/go.mod h1:leCGvxrBZvIj0tfzAq92jJFANCB7Iegatva6zvSuJvQ=
