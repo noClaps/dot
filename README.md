@@ -58,7 +58,3 @@ You can view the help by using `-h` or `--help`:
 dot -h
 dot --help
 ```
-
-## Licenses
-
-All of the code from the original upstream repository is licensed under [MIT](./LICENSE-MIT). All code I have added or changed is licensed under [0BSD](./LICENSE-0BSD).
