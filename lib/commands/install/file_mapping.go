@@ -7,6 +7,7 @@ import (
 
 	"github.com/noclaps/dot/lib/common/config"
 	"github.com/noclaps/dot/lib/common/log"
+	"github.com/noclaps/dot/lib/linkmode"
 	. "github.com/noclaps/dot/lib/types"
 	"github.com/noclaps/dot/lib/utils"
 	"github.com/noclaps/dot/lib/utils/files"
@@ -25,6 +26,7 @@ type FileMapping struct {
 	implicitDot       bool
 	implicitDotIgnore set.Set[string]
 	targetsSkipped    []AbsolutePath
+	linkMode          linkmode.LinkMode
 }
 
 func NewFileMapping(dotfilesDir AbsolutePath, config *config.Config, sourceFiles []RelativePath) FileMapping {
@@ -35,6 +37,7 @@ func NewFileMapping(dotfilesDir AbsolutePath, config *config.Config, sourceFiles
 		implicitDot:       config.ImplicitDot,
 		implicitDotIgnore: set.NewFromSlice(config.ImplicitDotIgnore),
 		targetsSkipped:    make([]AbsolutePath, 0),
+		linkMode:          linkmode.GetLinkMode(config),
 	}
 	for _, sourceFile := range sourceFiles {
 		mapping.Add(sourceFile)
@@ -76,7 +79,8 @@ func (fm *FileMapping) InstallNewLinks() []AbsolutePath {
 	createdLinks := make([]AbsolutePath, 0, 5)
 	for target, sourceStruct := range fm.mapping {
 		newSource := sourceStruct.path
-		if earlySkipTarget(target, newSource) {
+		if fm.linkMode.IsInstalledLinkOf(target.Str(), newSource) {
+			// Already correctly linked, skip early
 			continue
 		}
 
@@ -90,7 +94,7 @@ func (fm *FileMapping) InstallNewLinks() []AbsolutePath {
 		}
 		if os.IsNotExist(err) && files.EnsureParentDir(target) {
 			log.Info("Linking %s -> %s", target, newSource)
-			err = os.Symlink(newSource.Str(), target.Str())
+			err = fm.linkMode.CreateLink(newSource, target)
 			if err == nil {
 				createdLinks = append(createdLinks, target)
 				continue
@@ -101,24 +105,11 @@ func (fm *FileMapping) InstallNewLinks() []AbsolutePath {
 	return createdLinks
 }
 
-func earlySkipTarget(target AbsolutePath, newSource AbsolutePath) bool {
-	linkSource, linkErr := os.Readlink(target.Str())
-	if linkErr != nil {
-		// Either the link doesn't exist or it's not a symlink. In either case, proceed with the installation
-		return false
-	}
-	if linkSource == newSource.Str() {
-		log.Info("Link %s is already correct", target)
-		return true
-	}
-	return false
-}
-
 func (fm *FileMapping) RemoveStaleLinks(previousLinks *SymlinkCollection) []AbsolutePath {
 	removedLinks := make([]AbsolutePath, 0, 5)
 	for previousLinkPath := range previousLinks.Iter() {
 		if _, contains := fm.mapping[previousLinkPath]; !contains {
-			if !canBeSafelyRemoved(previousLinkPath, fm.sourceBaseDir) {
+			if !fm.canBeSafelyRemoved(previousLinkPath) {
 				log.Info("%s appears to have been modified externally. Skipping removal to avoid data loss.", previousLinkPath)
 				continue
 			}
@@ -151,12 +142,12 @@ func (fm *FileMapping) handleExistingSymlink(target, source AbsolutePath) bool {
 	}
 	if strings.HasPrefix(linkSource, fm.sourceBaseDir.Str()) {
 		log.Info("Link %s is incorrect (%s) but points to the source directory, replacing silently with %s", target, linkSource, source)
-		err := files.ReplaceWithSymlink(target, source)
+		err := files.ReplaceWithLink(target, source, fm.linkMode)
 		return err == nil
 	}
 	replace := utils.RequestInput("yN", "Link %s already exists, but it points to %s instead of %s. Replace it?", target, linkSource, source)
 	if replace == 'y' {
-		err := files.ReplaceWithSymlink(target, source)
+		err := files.ReplaceWithLink(target, source, fm.linkMode)
 		return err == nil
 	} else {
 		fm.targetsSkipped = append(fm.targetsSkipped, target)
@@ -177,20 +168,20 @@ func (fm *FileMapping) handleExistingFile(target, source AbsolutePath) bool {
 	}
 	if string(contents) == string(sourceContents) {
 		log.Info("File %s exists but its contents are identical to %s, replacing silently", target, source)
-		err := files.ReplaceWithSymlink(target, source)
+		err := files.ReplaceWithLink(target, source, fm.linkMode)
 		return err == nil
 	}
 	for {
 		replace := utils.RequestInput("yNa", "File %s already exists, but its contents differ from %s. Replace it? (A to adopt changes into dotfiles repo)", target, source)
 		switch replace {
 		case 'y':
-			err := files.ReplaceWithSymlink(target, source)
+			err := files.ReplaceWithLink(target, source, fm.linkMode)
 			return err == nil
 		case 'n':
 			fm.targetsSkipped = append(fm.targetsSkipped, target)
 			return false
 		case 'a':
-			err := files.AdoptChanges(target, source)
+			err := files.AdoptChanges(target, source, fm.linkMode)
 			return err == nil
 		}
 	}
@@ -204,10 +195,7 @@ func (fm *FileMapping) mapSourceToTarget(source RelativePath) optional.Optional[
 	return optional.WrapString(target)
 }
 
-func canBeSafelyRemoved(linkPath AbsolutePath, expectedDestinationDir AbsolutePath) bool {
-	linkSource, linkErr := os.Readlink(linkPath.Str())
-	if linkErr != nil {
-		return false
-	}
-	return strings.HasPrefix(linkSource, expectedDestinationDir.Str())
+func (fm *FileMapping) canBeSafelyRemoved(linkPath AbsolutePath) bool {
+	expectedDestinationDir := fm.sourceBaseDir.Str()
+	return fm.linkMode.CanBeSafelyRemoved(linkPath, expectedDestinationDir)
 }

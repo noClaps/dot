@@ -6,6 +6,7 @@ import (
 	"github.com/noclaps/dot/lib/common"
 	"github.com/noclaps/dot/lib/common/cache"
 	"github.com/noclaps/dot/lib/common/config"
+	"github.com/noclaps/dot/lib/linkmode"
 	. "github.com/noclaps/dot/lib/types"
 )
 
@@ -29,10 +30,14 @@ func Clean() {
 func installImpl(getFiles GetFilesFunc) {
 	dotfilesDir := common.FindDotfilesDir()
 	config := config.GetConfig()
+	linkMode := linkmode.GetLinkMode(&config)
 
 	cacheKey := dotfilesDir.Str() + string(filepath.ListSeparator) + config.TargetDir
 	cache := cache.Load()
 	installedFilesCache := cache.GetEntry(cacheKey)
+	if fullClean {
+		installedFilesCache.Links = linkMode.RecalculateCache(dotfilesDir, config.TargetDir)
+	}
 
 	fileList := getFiles(&config, dotfilesDir)
 	fileMapping := NewFileMapping(dotfilesDir, &config, fileList)
