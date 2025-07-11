@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/noclaps/applause"
+	"github.com/noclaps/dot/lib/commands/install"
+	"github.com/noclaps/dot/lib/commands/ls"
 	"github.com/noclaps/dot/lib/common/log"
-	"github.com/noclaps/dot/lib/install"
-	"github.com/noclaps/dot/lib/ls"
 )
 
 type Args struct {

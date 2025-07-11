@@ -12,7 +12,7 @@ import (
 
 // https://stackoverflow.com/a/58148921
 func ReplaceWithLink(target AbsolutePath, dotfilesSource AbsolutePath, linkMode linkmode.LinkMode) error {
-	tempLocation := target.AppendExtension(common.DOOT_BACKUP_EXT)
+	tempLocation := target.AppendExtension(common.DOT_BACKUP_EXT)
 	if err := os.Remove(tempLocation.Str()); err != nil && !os.IsNotExist(err) {
 		log.Error("Failed to remove temporary file %s, consider removing it manually.\n%s", tempLocation, err)
 		return err
