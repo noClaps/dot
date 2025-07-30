@@ -6,13 +6,7 @@ A fast, simple and intuitive dotfiles manager that just gets the job done. **[Sh
 
 ## Install
 
-You can install it from Homebrew:
-
-```sh
-brew install noclaps/tap/dot
-```
-
-or build it from source using Go:
+You can build it from source using Go:
 
 ```sh
 go install github.com/noclaps/dot@latest
