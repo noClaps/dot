@@ -25,10 +25,6 @@ func Empty[T any]() Optional[T] {
 	}
 }
 
-func (o Optional[T]) HasValue() bool {
-	return o.hasValue
-}
-
 func (o Optional[T]) IsEmpty() bool {
 	return !o.hasValue
 }

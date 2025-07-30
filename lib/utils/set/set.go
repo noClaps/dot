@@ -24,11 +24,3 @@ func (s *Set[T]) Contains(element T) bool {
 	_, exists := s.elements[element]
 	return exists
 }
-
-func (s *Set[T]) Remove(element T) {
-	delete(s.elements, element)
-}
-
-func (s *Set[T]) Iter() map[T]struct{} {
-	return s.elements
-}

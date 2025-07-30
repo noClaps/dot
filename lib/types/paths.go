@@ -71,14 +71,6 @@ func NewAbsolutePath(path string) AbsolutePath {
 	return AbsolutePath(path)
 }
 
-func RelativeToPWD(relativePath string) AbsolutePath {
-	absPath, err := filepath.Abs(relativePath)
-	if err != nil {
-		panic(err)
-	}
-	return NewAbsolutePath(absPath)
-}
-
 func (ap AbsolutePath) Join(other string) AbsolutePath {
 	return AbsolutePath(filepath.Join(ap.Str(), other))
 }

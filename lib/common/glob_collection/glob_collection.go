@@ -35,10 +35,6 @@ func (gc *GlobCollection) Matches(s RelativePath) bool {
 	return false
 }
 
-func (gc *GlobCollection) Len() int {
-	return len(gc.globs)
-}
-
 func preprocessPattern(pattern string) string {
 	// Since ** should also match 0-depth directories, we make all instances of **/ optional
 	const SUPER_GLOB = "**" + string(filepath.Separator)

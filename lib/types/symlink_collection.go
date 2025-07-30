@@ -3,8 +3,6 @@ package types
 import (
 	"slices"
 	"strings"
-
-	"github.com/noclaps/dot/lib/utils/optional"
 )
 
 type SymlinkCollection struct {
@@ -18,18 +16,6 @@ func NewSymlinkCollection(capacity int) SymlinkCollection {
 
 func (sc *SymlinkCollection) Add(linkPath, linkContent AbsolutePath) {
 	sc.links[linkPath] = linkContent
-}
-
-func (sc *SymlinkCollection) Get(linkPath AbsolutePath) optional.Optional[AbsolutePath] {
-	linkContent, exists := sc.links[linkPath]
-	if exists {
-		return optional.Of(linkContent)
-	}
-	return optional.Empty[AbsolutePath]()
-}
-
-func (sc *SymlinkCollection) Remove(linkPath AbsolutePath) {
-	delete(sc.links, linkPath)
 }
 
 func (sc *SymlinkCollection) Len() int {
