@@ -7,22 +7,25 @@ permissions:
 
 jobs:
   release:
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            goos: darwin
+            goarch: arm64
+          - os: ubuntu-latest
+            goos: linux
+            goarch: amd64
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.goos }}-${{ matrix.goarch }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
-      - run: GOOS=darwin GOARCH=arm64 go build -ldflags="-s" -o dot
-      - run: tar -acf dot.tar.xz dot
+      - run: GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -ldflags="-s" -o dot
+      - run: tar -acf dot-${{ matrix.goos }}-${{ matrix.goarch }}.tar.xz dot
       - uses: softprops/action-gh-release@v2
         with:
-          files: dot.tar.xz
-      - uses: noClaps/homebrew-tap-action@v1.1.0
-        with:
-          tap_repo: noClaps/homebrew-tap
-          formula_name: dot
-          version: ${{ github.ref_name }}
-          tap_token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
-          macos_file: dot.tar.gz
-          completion_command: "--completions"
+          files: dot-${{ matrix.goos }}-${{ matrix.goarch }}.tar.xz
